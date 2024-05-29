@@ -39,6 +39,16 @@
 
 }
 
+.score {
+    position: absolute;
+    top: 10px;
+    left: 720px;
+    font-size: 24px;
+    font-family: fantasy;
+    letter-spacing: 2px;
+    color: #17ae5e;
+}
+
 @keyframes pipe-animation {
     from {
         right: -80px;

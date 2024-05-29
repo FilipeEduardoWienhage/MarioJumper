@@ -1,12 +1,24 @@
 const mario = document.querySelector('.mario');
 const pipe = document.querySelector('.pipe');
+const scoreElement = document.querySelector('.score');
+
+let score = 0;
+let isGameOver = false;
 
 const jump = () => {
-    mario.classList.add('jump');
+    if (!isGameOver) {
+        mario.classList.add('jump');
 
-    setTimeout(() => {
-        mario.classList.remove('jump');
-    }, 500);
+        setTimeout(() => {
+            mario.classList.remove('jump');
+        }, 500);
+    }
+}
+const updateScore = () => {
+    if (!isGameOver) {
+        score++;
+        scoreElement.textContent = `Score: ${score}`;
+    }
 }
 
 const loop = setInterval(() => {
@@ -29,7 +41,10 @@ const loop = setInterval(() => {
         mario.style.margionLeft = '50px'
 
         clearInterval(loop);
+        isGameOver = true;
 
+    }else if (pipePosition < 0) {
+        updateScore();
     }
 
 }, 10);
