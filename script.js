@@ -4,19 +4,21 @@ const scoreElement = document.querySelector('.score');
 
 let score = 0;
 let isGameOver = false;
+let pulando = false;
 
 const jump = () => {
     if (!isGameOver) {
         mario.classList.add('jump');
 
         setTimeout(() => {
-            mario.classList.remove('jump');
+            mario.classList.remove('jump'); 
         }, 500);
     }
 }
 const updateScore = () => {
-    if (!isGameOver) {
+    if (!isGameOver && !pulando) {
         score++;
+        pulando = true;
         scoreElement.textContent = `Score: ${score}`;
     }
 }
@@ -26,7 +28,6 @@ const loop = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
     
-    console.log(marioPosition);
     
     if (pipePosition <= 120 && pipePosition >0 && marioPosition < 80) {
     
@@ -43,9 +44,11 @@ const loop = setInterval(() => {
         clearInterval(loop);
         isGameOver = true;
 
-    }else if (pipePosition < 0) {
+    } else if (marioPosition === 0) {
+        pulando = false;
+    } else if (pipePosition < 0) {
         updateScore();
-    }
+    } 
 
 }, 10);
 
